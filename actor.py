@@ -7,6 +7,9 @@ class Actor():
         self.last_name = last_name
         self.last_update = last_update
 
+    def __str__(self) -> str:
+        return f"-> {self.id} - {self.last_name} {(self.first_name).capitalize()}"
+
 
 if __name__ == '__main__':
     cnx = connect.call('root','sakila')

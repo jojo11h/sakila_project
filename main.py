@@ -1,6 +1,6 @@
 import time
 import connect_db as connect
-import actor as ac
+from actor_db import read_actor as ac , show_actors
 
 cnx = connect.call('root','sakila')
 
@@ -61,9 +61,7 @@ while True:
                                 else:
                                     match user_choice:
                                         case "1":
-
-
-
+                                            show_actors(ac(cnx))
                                             time.sleep(1.5)
                                         case "2":
 
