@@ -1,6 +1,7 @@
 import time
 import connect_db as cnx
 from actor import show_actor
+from film import show_film
 
 result = cnx.cursor
 
@@ -45,9 +46,7 @@ while True:
                                 show_actor()
                                 time.sleep(1.5)
                             case "2":
-                                result.execute('select title from film;')
-                                for table in result:
-                                    print('-',' '.join(table))
+                                show_film()
                                 time.sleep(1.5)
                                 pass
                             case "3":
