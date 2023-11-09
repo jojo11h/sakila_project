@@ -1,12 +1,15 @@
 import mysql.connector as mysql
 
-try:
-    cnx = mysql.connect(host="127.0.0.1",
-                         user='root',
-                         password="",
-                         database ='sakila')
 
-except mysql.Error as e:
-    print(e)
+def call(user,db):
+    try:
+        conn = mysql.connect(host ="127.0.0.1",
+                            user = user,
+                            password = "",
+                            database = db)
 
-cursor = cnx.cursor()
+    except mysql.Error as e:
+            print(e)
+
+    return conn
+

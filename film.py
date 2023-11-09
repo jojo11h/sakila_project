@@ -1,13 +1,18 @@
-import connect_db as cnx
-result = cnx.cursor
+import connect_db as connect
 
-def show_film():
-    result.execute('select title,length from film;')
+
+def show_film(cnx):
+    request = cnx.cursor()
+    request.execute('select title,length from film;')
+    result = request.fetchall()
     for table in result:
-        print('->',table[0],table[1]+'min')
+        print('->',table[0],'-',table[1],'min')
 
 
 if __name__ == '__main__':
-    result.execute('select title,length from film;')
+    cnx = connect.call('root','sakila')
+    request = cnx.cursor()
+    request.execute('select title,length from film;')
+    result = request.fetchall()
     for table in result:
-        print('->',table[0],'-',str(table[1])+' min.')
+        print('->',table[0],'-',table[1],'min')

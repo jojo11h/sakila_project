@@ -1,19 +1,17 @@
-import connect_db as cnx
-result = cnx.cursor
-
-
-def show_actor():
-    result.execute('select first_name , last_name from actor;')
-    for table in result:
-        print('-',' '.join(table))
-
-
+import connect_db as connect
 
 class Actor():
-    def __init__(self,id,first_name,last_name) -> None:
+    def __init__(self,id,first_name,last_name,last_update) -> None:
         self.id = id
         self.first_name = first_name
         self.last_name = last_name
+        self.last_update = last_update
 
 
-
+if __name__ == '__main__':
+    cnx = connect.call('root','sakila')
+    request = cnx.cursor()
+    request.execute('select * from actor;')
+    result = request.fetchall()
+    for table in result:
+        print(table)
