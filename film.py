@@ -1,13 +1,5 @@
 import connect_db as connect
 
-
-def show_film(cnx):
-    request = cnx.cursor()
-    request.execute('select title,length from film;')
-    result = request.fetchall()
-    for table in result:
-        print('->',table[0],'-',table[1],'min')
-
 class Film():
     def __init__(self,film_id:int,title:str,descr:str,release:int,lang_id:str,vo:str,rent_dur:int,rent_rate:float,length:int,replc_cost:float,rating:str,spec_feat) -> None:
         self.film_id=film_id
