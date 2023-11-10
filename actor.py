@@ -1,7 +1,8 @@
 import connect_db as connect
 
+
 class Actor():
-    def __init__(self,id,first_name,last_name,last_update) -> None:
+    def __init__(self, id, first_name, last_name, last_update) -> None:
         self._id = id
         self.first_name = first_name
         self.last_name = last_name
@@ -15,7 +16,7 @@ class Actor():
         return self._id
 
     @id.setter
-    def id(self,id):
+    def id(self, id):
         self._id = id
 
     @id.deleter
@@ -27,20 +28,25 @@ class Actor():
         return self._last_update
 
     @last_update.setter
-    def last_update(self,new_last_update):
+    def last_update(self, new_last_update):
         self._last_update = new_last_update
 
     @last_update.deleter
     def last_update(self):
         del self._last_update
 
-
-    def update_actor(self,first_name,last_name):
+    def update_actor(self, first_name, last_name):
         self.first_name = first_name
         self.last_name = last_name
 
+    def insert_actor(self):
+        self.id
+        self.first_name
+        self.last_name
+
+
 if __name__ == '__main__':
-    cnx = connect.call('root','sakila')
+    cnx = connect.call('root', 'sakila')
     request = cnx.cursor()
     request.execute('select * from actor;')
     result = request.fetchall()

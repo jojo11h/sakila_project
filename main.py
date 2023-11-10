@@ -1,25 +1,24 @@
 import time
 import connect_db as connect
-from actor_db import read_actor as ac , show_actors,update_actor
+from actor_db import read_actor as ac, show_actors, update_actor, add_actor
 from film_db import read_film as rf, show_film
-from categorie_db import read_categorie as rc , show_category
+from categorie_db import read_categorie as rc, show_category
 
-cnx = connect.call('root','sakila')
+cnx = connect.call('root', 'sakila')
 
 while True:
     print("_" * 50)
     print()
     print("Que veux tu faire :")
-    print("-> 1. Voir le contenu (Film, Acteur)")
-    print("-> 2. Modifier le contenu")
-    print("-> 3. Supprimer du contenu")
+    print("-> 1. Voir le contenu (Film, Acteur, Catégorie)")
+    print("-> 2. Modifier le contenu (Ajout, Modification, Suppression)")
     print('-> "q pour quitter ')
     user_choice = input("=> ")
 
     if user_choice == "q":
         break
 
-    if user_choice not in ["1", "2", "3"]:
+    if user_choice not in ["1", "2"]:
         print("Veuillez choisir une donnée valide !")
 
     else:
@@ -157,16 +156,45 @@ while True:
                             case "1":
                                 print("_" * 50)
                                 print()
-                                print("Quel acteur souhaite-tu modifier ?")
-                                print("-> Rentre son ID")
-                                id_select = input("=> ")
-                                print("-> Rentre son prenom")
-                                first_name_select = input("=> ")
-                                print("-> Rentre son nom")
-                                last_name_select = input("=> ")
-                                update_actor(cnx,first_name_select,last_name_select,id_select)
+                                print("Que veux tu faire")
+                                print("-> 1. Ajouter un Acteur")
+                                print("-> 2. Modifier les données sur un acteur")
+                                print("-> 2.  les données sur un acteur")
+                                print('-> "q pour quitter ')
+                                user_choice = input("=> ")
 
+                                if user_choice == "q":
+                                    break
 
+                                if user_choice not in ["1", "2", "3"]:
+                                    print("Veuillez choisir une donnée valide !")
+
+                                else:
+                                    match user_choice:
+                                        case "1":
+                                            print("_" * 50)
+                                            print()
+                                            print(
+                                                "Quel acteur souhaite-tu ajouter ?")
+                                            print("-> Rentre son prenom")
+                                            first_name_select = input("=> ")
+                                            print("-> Rentre son nom")
+                                            last_name_select = input("=> ")
+                                            add_actor(
+                                                cnx, first_name_select, last_name_select)
+                                        case "2":
+                                            print("_" * 50)
+                                            print()
+                                            print(
+                                                "Quel acteur souhaite-tu modifier ?")
+                                            print("-> Rentre son ID")
+                                            id_select = input("=> ")
+                                            print("-> Rentre son prenom")
+                                            first_name_select = input("=> ")
+                                            print("-> Rentre son nom")
+                                            last_name_select = input("=> ")
+                                            update_actor(cnx, first_name_select,
+                                                         last_name_select, id_select)
 
 # if __name__ == '__main__':
 #     request = cnx.cursor()
