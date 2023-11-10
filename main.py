@@ -1,6 +1,6 @@
 import time
 import connect_db as connect
-from actor_db import read_actor as ac , show_actors
+from actor_db import read_actor as ac , show_actors,update_actor
 from film_db import read_film as rf, show_film
 from categorie_db import read_categorie as rc , show_category
 
@@ -134,7 +134,37 @@ while True:
                                             pass
                                         case _:
                                             print("essais")
+            case '2':
+                while True:
+                    print("_" * 50)
+                    print()
+                    print("Que veux tu modifier")
+                    print("-> 1. Les acteurs")
+                    print("-> 2. Les Films")
+                    print("-> 3. Les Catégories")
+                    print('-> "q pour quitter ')
+                    user_choice = input("=> ")
 
+                    if user_choice == "q":
+                        break
+
+                    if user_choice not in ["1", "2", "3"]:
+                        print("Veuillez choisir une donnée valide !")
+
+                    else:
+                        match user_choice:
+
+                            case "1":
+                                print("_" * 50)
+                                print()
+                                print("Quel acteur souhaite-tu modifier ?")
+                                print("-> Rentre son ID")
+                                id_select = input("=> ")
+                                print("-> Rentre son prenom")
+                                first_name_select = input("=> ")
+                                print("-> Rentre son nom")
+                                last_name_select = input("=> ")
+                                update_actor(cnx,first_name_select,last_name_select,id_select)
 
 
 

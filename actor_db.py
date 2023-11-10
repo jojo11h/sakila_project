@@ -18,14 +18,15 @@ def show_actors(actors):
     for actor in actors:
         print(actor)
 
+def update_actor(cnx,first_name,last_name,id):
+    request = cnx.cursor()
+    request.execute(f'UPDATE actor SET first_name = {first_name}, last_name = {last_name}, last_update = now() where actor_id = {id}')
+    cnx.commit()
+
 
 if __name__ == '__main__':
     cnx = connect.call('root','sakila')
-    actors = []
     request = cnx.cursor()
-    request.execute('select * from actor;')
-    result = request.fetchall()
-    for row in result:
-        actors.append(ac.Actor(row[0],row[1],row[2],row[3]))
-    for actor in actors:
-        print(actor.first_name)
+    request.execute(f'UPDATE actor SET first_name = "PENELOPE", last_name = "GUINESS", last_update = now() where actor_id = 1')
+    cnx.commit()
+
