@@ -41,9 +41,18 @@ def add_actor(cnx, new_first_name, new_last_name):
         print(f"Erreur lors de l'insertion de l'acteur : {e}")
 
 
+def delete_actor(cnx, id):
+    request = cnx.cursor()
+    request.execute(f"delete from actor where actor_id = {id};")
+    try:
+        cnx.commit()
+        print("Suppression effectué!")
+    except Exception as e:
+        print(f"Erreur lors de la suppression de l'acteur : {e}")
+
+
 if __name__ == '__main__':
     cnx = connect.call('root', 'sakila')
     request = cnx.cursor()
-    request.execute(
-        f'UPDATE actor SET first_name = "PENELOPE", last_name = "GUINESS", last_update = now() where actor_id = 1')
+    request.execute(f"delete from actor where actor_id = 201;")
     cnx.commit()

@@ -1,6 +1,6 @@
 import time
 import connect_db as connect
-from actor_db import read_actor as ac, show_actors, update_actor, add_actor
+from actor_db import read_actor as ac, show_actors, update_actor, add_actor, delete_actor
 from film_db import read_film as rf, show_film
 from categorie_db import read_categorie as rc, show_category
 
@@ -159,7 +159,7 @@ while True:
                                 print("Que veux tu faire")
                                 print("-> 1. Ajouter un Acteur")
                                 print("-> 2. Modifier les données sur un acteur")
-                                print("-> 2.  les données sur un acteur")
+                                print("-> 3. Supprimer un acteur")
                                 print('-> "q pour quitter ')
                                 user_choice = input("=> ")
 
@@ -195,6 +195,15 @@ while True:
                                             last_name_select = input("=> ")
                                             update_actor(cnx, first_name_select,
                                                          last_name_select, id_select)
+
+                                        case '3':
+                                            print("_" * 50)
+                                            print()
+                                            print(
+                                                "Quel acteur souhaite-tu supprimer ?")
+                                            print("-> Rentre son ID")
+                                            id_select = input("=> ")
+                                            delete_actor(cnx, id_select)
 
 # if __name__ == '__main__':
 #     request = cnx.cursor()
