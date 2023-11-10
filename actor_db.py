@@ -1,16 +1,11 @@
-
+from connect_db import DatabaseManager as dataco
 import actor as ac
-import connect_db as connect
 
 
 def read_actor(cnx):
-    actors = []
-    request = cnx.cursor()
-    request.execute('select * from actor;')
-    result = request.fetchall()
-    for row in result:
-        result[row[0] - 1] = ac.Actor(row[0], row[1], row[2], row[3])
-        actors.append(result[row[0]-1])
+    query = 'SELECT * FROM actor;'
+    result = cnx.execute_query(query)
+    actors = [ac.Actor(row[0], row[1], row[2], row[3]) for row in result]
     return actors
 
 
@@ -19,40 +14,53 @@ def show_actors(actors):
         print(actor)
 
 
-def update_actor(cnx, first_name, last_name, id):
-    request = cnx.cursor()
-    request.execute(f'UPDATE actor SET first_name = {first_name}, last_name = {
-                    last_name}, last_update = now() where actor_id = {id}')
-    try:
-        cnx.commit()
-        print('Mise à jour effectué')
-    except Exception as e:
-        print(f"Erreur de mise à jours :{e}")
+# def is_valid_input(user_input):
+#     try:
+#         int(user_input)
+#         return True
+#     except ValueError:
+#         return False
+
+
+def does_actor_exist(cnx, last_name):
+    query = f"SELECT * FROM actor WHERE last_name = '{last_name}';"
+    result = cnx.execute_query(query)
+    if len(result) == 1:
+        return update_actor(cnx, result[0])
+    elif len(result) > 1:
+        for actor in result:
+            print(actor)
+
+    else:
+        return False
+
+
+def update_actor(cnx, actor_id):
+    first_name = input("Entrez son prénom \n => ")
+    last_name = input('Entrez son nom \n => ')
+    query = f"UPDATE actor SET first_name = '{first_name}', last_name = '{
+        last_name}', last_update = NOW() WHERE actor_id = {actor_id};"
+    cnx.execute_query(query, commit=True)
+    print("Mise à jour effectuée")
 
 
 def add_actor(cnx, new_first_name, new_last_name):
-    request = cnx.cursor()
-    request.execute(f"insert into actor(first_name,last_name) values ('{
-                    new_first_name}','{new_last_name}');")
-    try:
-        cnx.commit()
-        print("Ajout effectué!")
-    except Exception as e:
-        print(f"Erreur lors de l'insertion de l'acteur : {e}")
+    query = f"""insert into actor(first_name,last_name) values ('{
+        new_first_name}','{new_last_name}');"""
+    cnx.execute_query(query, commit=True)
 
 
-def delete_actor(cnx, id):
-    request = cnx.cursor()
-    request.execute(f"delete from actor where actor_id = {id};")
-    try:
-        cnx.commit()
-        print("Suppression effectué!")
-    except Exception as e:
-        print(f"Erreur lors de la suppression de l'acteur : {e}")
+def delete_actor(cnx, actor_id):
+    # while True:
+    # if is_valid_input(actor_id):
+    query = f"delete from actor where actor_id = {actor_id};"
+    cnx.execute_query(query, commit=True)
+    # break
+    # else:
+    # actor_id = input('Donnez un ID valide : ')
 
 
 if __name__ == '__main__':
-    cnx = connect.call('root', 'sakila')
-    request = cnx.cursor()
-    request.execute(f"delete from actor where actor_id = 201;")
-    cnx.commit()
+    cnx = dataco('root', 'sakila')
+    actors = read_actor(cnx)
+    does_actor_exist(cnx, input("=> "))

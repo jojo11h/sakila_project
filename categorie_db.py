@@ -17,6 +17,10 @@ def show_category(categories):
         print(category)
 
 
+def show_film_by_cat(cnx, cat):
+    request = cnx.cursor()
+
+
 if __name__ == '__main__':
     categories = []
     cnx = connect.call('root', 'sakila')

@@ -1,10 +1,10 @@
 import time
-import connect_db as connect
+from connect_db import DatabaseManager as dataco
 from actor_db import read_actor as ac, show_actors, update_actor, add_actor, delete_actor
 from film_db import read_film as rf, show_film
 from categorie_db import read_categorie as rc, show_category
 
-cnx = connect.call('root', 'sakila')
+cnx = dataco('root', 'sakila')
 
 while True:
     print("_" * 50)
@@ -108,7 +108,7 @@ while True:
                                 print()
                                 print("Que veux tu Faire")
                                 print("-> 1. Voir toutes les categories")
-                                print("-> 2. *")
+                                print("-> 2. Recherche film par categorie")
                                 print("-> 3. *")
                                 print('-> "q pour quitter ')
                                 user_choice = input("=> ")
@@ -187,25 +187,18 @@ while True:
                                             print()
                                             print(
                                                 "Quel acteur souhaite-tu modifier ?")
-                                            print("-> Rentre son ID")
-                                            id_select = input("=> ")
-                                            print("-> Rentre son prenom")
-                                            first_name_select = input("=> ")
                                             print("-> Rentre son nom")
                                             last_name_select = input("=> ")
-                                            update_actor(cnx, first_name_select,
-                                                         last_name_select, id_select)
-
+                                            update_actor(cnx)
                                         case '3':
                                             print("_" * 50)
                                             print()
                                             print(
                                                 "Quel acteur souhaite-tu supprimer ?")
-                                            print("-> Rentre son ID")
-                                            id_select = input("=> ")
-                                            delete_actor(cnx, id_select)
+                                            delete_actor(cnx, input("=> "))
 
 # if __name__ == '__main__':
+
 #     request = cnx.cursor()
 #     request.execute('select * from actor;')
 #     result = request.fetchall()
