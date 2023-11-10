@@ -7,9 +7,7 @@ def call(user,db):
                             user = user,
                             password = "",
                             database = db)
-
     except mysql.Error as e:
             print(e)
-
     return conn
 

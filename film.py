@@ -16,7 +16,7 @@ class Film():
         self.spec_feat=spec_feat
 
     def __str__(self) -> str:
-        return f"{self.film_id} - {self.title} {self.length} mins"
+        return f"{self.film_id} - {self.title} ({self.length} mins)"
 
 
 if __name__ == '__main__':
