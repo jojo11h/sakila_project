@@ -47,7 +47,7 @@ def show_actor(cnx, last_name):
 
     if len(result) == 1:
         actor = ac.Actor(result[0][0], result[0][1], result[0][2])
-        return actor
+        print(actor)
     elif len(result) > 1:
         id_result = []
         print("Plusieurs résultats trouvés, entrez l'ID de l'acteur correspondant :")
