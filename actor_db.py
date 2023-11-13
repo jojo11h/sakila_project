@@ -41,6 +41,25 @@ def does_actor_exist(cnx, last_name):
         return does_actor_exist(cnx, input("=> "))
 
 
+def show_actor(cnx, last_name):
+    query = "SELECT * FROM actor WHERE last_name = %s;"
+    result = cnx.execute_query(query, (last_name,))
+
+    if len(result) == 1:
+        actor = ac.Actor(result[0][0], result[0][1], result[0][2])
+        return actor
+    elif len(result) > 1:
+        id_result = []
+        print("Plusieurs résultats trouvés, entrez l'ID de l'acteur correspondant :")
+        for actor in result:
+            print('->', actor[0], actor[1], actor[2])
+            id_result.append(str(actor[0]))
+
+    else:
+        print('Rien trouvé, entrez à nouveau un nom :')
+        return show_actor(cnx, input("=> "))
+
+
 def update_actor(cnx, actor_id):
     first_name = input("Entrez son prénom \n => ")
     last_name = input('Entrez son nom \n => ')

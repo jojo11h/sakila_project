@@ -1,6 +1,6 @@
 import time
 from connect_db import DatabaseManager as dataco
-from actor_db import read_actor as ac, show_actors, does_actor_exist, add_actor, delete_actor
+from actor_db import read_actor as ac, show_actors, show_actor, does_actor_exist, add_actor, delete_actor
 from film_db import read_film as rf, show_film
 from categorie_db import read_categorie as rc, show_category
 
@@ -48,7 +48,7 @@ while True:
                                 print()
                                 print("Que veux tu Faire")
                                 print("-> 1. Voir tout les acteurs")
-                                print("-> 2. *")
+                                print("-> 2. Voir un acteur (recherche par nom)")
                                 print("-> 3. *")
                                 print('-> "q pour quitter ')
                                 user_choice = input("=> ")
@@ -65,7 +65,9 @@ while True:
                                             show_actors(ac(cnx))
                                             time.sleep(1.5)
                                         case "2":
-
+                                            print("le nom de l'acteur : ")
+                                            show_actor(cnx,
+                                                       input("=>"))
                                             time.sleep(1.5)
                                             pass
                                         case "3":
