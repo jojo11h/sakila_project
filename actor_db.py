@@ -14,17 +14,9 @@ def show_actors(actors):
         print(actor)
 
 
-# def is_valid_input(user_input):
-#     try:
-#         int(user_input)
-#         return True
-#     except ValueError:
-#         return False
-
-
 def does_actor_exist(cnx, last_name):
-    query = f"SELECT * FROM actor WHERE last_name = '{last_name}';"
-    result = cnx.execute_query(query)
+    query = "SELECT * FROM actor WHERE last_name = %s;"
+    result = cnx.execute_query(query, (last_name,))
 
     if len(result) == 1:
         actor = ac.Actor(result[0][0], result[0][1], result[0][2])
@@ -38,13 +30,12 @@ def does_actor_exist(cnx, last_name):
 
         while True:
             user_id = input('=> ')
-            if user_id not in id_result:
+            if user_id not in id_result or not user_id.isdigit():
                 print(id_result)
                 print("Veuillez choisir une donnée valide !")
             else:
                 update_actor(cnx, int(user_id))
                 break
-
     else:
         print('Rien trouvé, entrez à nouveau un nom :')
         return does_actor_exist(cnx, input("=> "))
@@ -53,9 +44,9 @@ def does_actor_exist(cnx, last_name):
 def update_actor(cnx, actor_id):
     first_name = input("Entrez son prénom \n => ")
     last_name = input('Entrez son nom \n => ')
-    query = f"UPDATE actor SET first_name = '{first_name}', last_name = '{
-        last_name}' WHERE actor_id = {actor_id};"
-    cnx.execute_query(query, commit=True)
+    query = "UPDATE actor SET first_name = %s, last_name = %s WHERE actor_id = %s;"
+    data = (first_name, last_name, actor_id)
+    cnx.execute_query(query, data, commit=True)
     print("Mise à jour effectuée")
 
 

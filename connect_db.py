@@ -12,9 +12,12 @@ class DatabaseManager:
         if hasattr(self, 'cnx') and self.cnx.is_connected():
             self.cnx.close()
 
-    def execute_query(self, query, commit=False):
+    def execute_query(self, query, data=None, commit=False):
         request = self.cnx.cursor()
-        request.execute(query)
+        if data:
+            request.execute(query, data)
+        else:
+            request.execute(query)
         if commit:
             try:
                 self.cnx.commit()
