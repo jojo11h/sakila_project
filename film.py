@@ -2,7 +2,7 @@ import connect_db as connect
 
 
 class Film():
-    def __init__(self, film_id: int, title: str, descr: str, release: int, lang_id: str, vo: str, rent_dur: int, rent_rate: float, length: int, replc_cost: float, rating: str, spec_feat) -> None:
+    def __init__(self, film_id: int, title: str, descr: str = """Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum.""", release: int = 1990, lang_id: str = 2, vo: int = 5, rent_dur: int = 3, rent_rate: float = 03.10, length: int = 120, replc_cost: float = 015.20, rating: str = 'G', spec_feat="Deleted Scenes,Behind the Scenes") -> None:
         self.film_id = film_id
         self.title = title
         self.descr = descr

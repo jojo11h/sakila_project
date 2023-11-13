@@ -55,9 +55,17 @@ def show_actor(cnx, last_name):
             print('->', actor[0], actor[1], actor[2])
             id_result.append(str(actor[0]))
 
-    else:
-        print('Rien trouvé, entrez à nouveau un nom :')
-        return show_actor(cnx, input("=> "))
+
+def show_actor_film(cnx, last_name):
+    query = """select f.title, ac.first_name, ac.last_name from film f \
+	inner join film_actor fa on f.film_id = fa.film_id \
+    inner join  actor ac on fa.actor_id = ac.actor_id \
+    where ac.last_name = %s \
+    group by ac.actor_id,f.film_id \
+    order by ac.actor_id;"""
+    result = cnx.execute_query(query, (last_name,))
+    for film in result:
+        print('->', film[0], '-', film[1], film[2])
 
 
 def update_actor(cnx, actor_id):
@@ -87,5 +95,4 @@ def delete_actor(cnx, actor_id):
 
 if __name__ == '__main__':
     cnx = dataco('root', 'sakila')
-    actors = read_actor(cnx)
-    does_actor_exist(cnx, input("=> "))
+    print(show_actor_film(cnx, input('=> ')))
